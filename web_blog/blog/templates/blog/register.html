@@ -1,0 +1,51 @@
+{% include "blog/header.html" %}
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('../static/blog/assets/img/register-bg.jpg')">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="page-heading">
+          <h1>Register</h1>
+          <span class="subheading">Start Contributing to the Blog!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="mb-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <!--Rendering the registration form here-->
+        <form id="contactForm" name="sentMessage" action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            {% if error %}
+              <p class="text-danger">{{ error }}</p>
+            {% endif %}
+            <div class="form-floating">
+                <input class="form-control" id="username" name="username" type="text" placeholder="Enter your username..." required />
+                <label for="username">Username</label>
+            </div>
+            <div class="form-floating">
+                <input class="form-control" id="email" name="email" type="email" placeholder="Enter your email..." required />
+                <label for="email">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input class="form-control" id="password1" name="password1" type="password" placeholder="Enter your password..." required />
+                <label for="password1">Password</label>
+            </div>
+            <div class="form-floating">
+                <input class="form-control" id="password2" name="password2" type="password" placeholder="Repeat your password..." required />
+                <label for="password2">Repeat password</label>
+            </div>
+            <br />
+            <button class="btn btn-danger text-uppercase" id="submitButton" type="submit">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% include "blog/footer.html" %}

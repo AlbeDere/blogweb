@@ -1,0 +1,82 @@
+{% include "blog/header.html" %}
+
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('{{post.img_url}}')">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="post-heading">
+          {% block page_title %}
+          <h1>{{ post.title }}</h1>
+          {% endblock page_title %}
+          <h2 class="subheading">{{ post.subtitle }}</h2>
+          <span class="meta">
+            {% block page_content %}
+            Posted on
+            {{post.created_on.date}} | Categories:
+            {% for category in post.categories.all %}
+            <a href="{% url 'blog_category' category.name %}">
+              {{ category.name }}
+            </a>
+            {% endfor %}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Post Content -->
+<article>
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        {{ post.body | linebreaks }}
+        {% if user.is_authenticated and user.is_superuser %}
+        <div class="d-flex justify-content-end mb-4">
+          <a
+            class="btn btn-primary float-right"
+            href="{% url 'edit_blogpost' post_id=post.id %}"
+            >Edit Post</a
+          >
+        </div>
+        {% endif %}
+        <!-- Comments Area -->
+        <div class="comment">
+          <ul class="commentList">
+            <!-- Show all comments -->
+            {% for comment in comments %}
+            <li>
+              <div class="commenterImage">
+                {% load gravatar %}
+                <img
+                  src="{% gravatar_url comment.author 150 %}"
+                />
+              </div>
+              <div class="commentText">
+                {{ comment.body | linebreaks }}
+                <span class="sub-text">{{ comment.author }}</span>
+                <span class="sub-text"> / {{ comment.created_on.date }}</span>
+              </div>
+            </li>
+            {% endfor %}
+            
+          </ul>
+        </div>
+        <form method="post">
+          {% csrf_token %}
+          <div>
+              {{ comment.author }}
+          </div>
+          <div>
+              {{ form.body }}
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      {% endblock page_content %}
+      </div>
+    </div>
+  </div>
+</article>
+
+{% include "blog/footer.html" %}

@@ -1,0 +1,64 @@
+{% extends "blog/index.html" %}
+{% include "blog/header.html" %}
+
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('https://plus.unsplash.com/premium_photo-1673480195911-3075a87738b0?q=80&amp;w=2070&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    {% block page_title %}
+                        <h1>{{ category }}</h1>
+                    {% endblock page_title %}
+                    {% block subheading %}
+                    {% endblock subheading %}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+            {% block page_content %}
+                {% block posts %}
+                    {% for post in posts %}
+                        <div class="post-preview">
+                            <a href="{% url 'blog_detail' post.pk %}">
+                                <h2 class="post-title">{{ post.title }}</h2>
+                                <h3 class="post-subtitle">{{ post.subtitle }}</h3>
+                            </a>
+                            <p class="post-meta">
+                                Posted on {{ post.created_on.date }} | Categories:
+                                {% for category in post.categories.all %}
+                                    <a href="{% url 'blog_category' category.name %}">
+                                        {{ category.name }}
+                                    </a>
+                                    <!-- Only show delete button if user is 1 (admin user) and authenticated -->
+                                    {% if user.is_authenticated and user.is_superuser %}
+                                    <a href="{% url 'delete_post' post_id=post.id %}">✘</a>
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                        <!-- Divider-->
+                        <hr class="my-4" />
+                    {% endfor %}
+                    {% if user.is_authenticated and user.is_superuser %}
+                    <div class="d-flex justify-content-end mb-4">
+                        <a
+                        class="btn btn-primary float-right"
+                        href="{% url 'create_blogpost' %}"
+                        >Create New Post</a
+                        >
+                    </div>
+                    {% endif %}
+                {% endblock posts %}
+            {% endblock page_content %}
+        </div>
+    </div>
+</div>
+
+{% include "blog/footer.html" %}
