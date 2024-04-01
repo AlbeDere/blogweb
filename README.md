@@ -9,29 +9,67 @@ This Django blog project is a simple web application built using Django, a high-
 - Commenting system: Users can leave comments on blog posts.
 - Responsive design: The blog is designed to be mobile-friendly.
 
-## Installation
+## Getting Started
+
+To get started with this project, follow these steps:
 
 1. Clone the repository:
 
-git clone https://github.com/your_username/django-blog.git
+    ```bash
+    git clone https://github.com/AlbeDere/web_blog.git
+    ```
 
-2. Navigate to the project directory:
+2. Install dependencies:
 
-cd web_blog
+    ```bash
+    cd web_blog
+    pip install -r requirements.txt
+    ```
 
-3. Install dependencies:
+3. Apply database migrations:
 
-pip install -r requirements.txt
+    ```bash
+    python manage.py migrate
+    ```
 
-4. Apply database migrations:
+4. Run the development server:
 
-python manage.py migrate
+    ```bash
+    python manage.py runserver
+    ```
 
-5. Run the development server:
+    Access the application at [http://localhost:8000](http://localhost:8000) in your web browser.
 
-python manage.py runserver
+## Docker Setup
 
-6. Access the blog in your web browser at http://localhost:8000.
+This project includes Docker configuration for easy deployment. Follow these steps to run the application in a Docker container:
+
+1. Install Docker Desktop for your operating system: [Docker Desktop](https://www.docker.com/products/docker-desktop)
+
+2. Build the Docker image:
+
+    ```bash
+    docker-compose build
+    ```
+
+3. Start the Docker containers:
+
+    ```bash
+    docker-compose up -d
+    ```
+
+    Access the application at [http://localhost:8000](http://localhost:8000) in your web browser.
+
+## Contributing
+
+Contributions are welcome! Please follow these guidelines when contributing to the project:
+
+- Fork the repository
+- Create a new branch (`git checkout -b feature`)
+- Make your changes
+- Commit your changes (`git commit -am 'Add new feature'`)
+- Push to the branch (`git push origin feature`)
+- Create a new Pull Request
 
 ## Usage
 
@@ -43,9 +81,5 @@ default superuser is:
 username - admin
 password - admin
 
-- Log in to the admin interface at http://localhost:8000/admin to manage blog posts and comments.
 
-## Credits
-
-- This project was created by Albert D.
 
