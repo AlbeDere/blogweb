@@ -22,7 +22,6 @@ To get started with this project, follow these steps:
 2. Install dependencies:
 
     ```bash
-    cd web_blog
     pip install -r requirements.txt
     ```
 
