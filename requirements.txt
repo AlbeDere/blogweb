@@ -60,3 +60,4 @@ wcwidth==0.2.13
 webencodings==0.5.1
 yarg==0.1.9
 python-dotenv==1.0.1
+gunicorn==22.0.0
